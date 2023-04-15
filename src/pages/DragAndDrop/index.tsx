@@ -10,43 +10,15 @@ const initailList = [
 
 const DragAndDrop = () => {
   const [list, setList] = useState(initailList);
-  //   const dragItem = useRef<number>(0);
-  //   const dragOverItem = useRef<number>(0);
-
-  //   const onDragStart = (e: any, i: number) => {
-  //     console.log(i);
-  //     console.log('start');
-  //     dragItem.current = i;
-  //     e.target.classList.add('grab');
-  //   };
-
-  //   const onDragEnter = (e: any, i: number) => {
-  //     console.log('enter');
-  //     dragOverItem.current = i;
-  //     const newList = [...initailList];
-  //     newList[Number(dragItem)] = newList.splice(i, 1, newList[Number(dragItem)])[0];
-  //     setList(newList);
-  //   };
-
-  //   const onDrageEnd = (e: any) => {
-  //     console.log('end');
-  //     e.target.classList.remove('grab');
-  //   };
-
-  //   const onDragOver = (e: any) => {
-  //     e.preventDefault();
-  //     console.log('over');
-  //   };
-
   const [target, setTarget] = useState<HTMLDivElement | null>(null);
 
   const onDragOver = (e: SyntheticEvent) => {
-    console.log('over');
+    // console.log('over');
     e.preventDefault();
   };
 
   const onDragStart = (e: any) => {
-    console.log('start');
+    // console.log('start');
     setTarget(e.target);
     e.target.classList.add('grab');
     e.dataTransfer.effectAllowed = 'move';
@@ -54,7 +26,7 @@ const DragAndDrop = () => {
   };
 
   const onDragEnd = (e: DragEvent<HTMLDivElement>) => {
-    console.log('end');
+    // console.log('end');
     if (e.target instanceof HTMLDivElement) {
       e.target.classList.remove('grab');
       e.dataTransfer.dropEffect = 'move';
@@ -62,7 +34,7 @@ const DragAndDrop = () => {
   };
 
   const onDrop = (e: DragEvent<HTMLDivElement>) => {
-    console.log('drop');
+    // console.log('drop');
     if (e.target instanceof HTMLDivElement) {
       let dragIndex = Number(target?.dataset.index);
       let dropIndex = Number(e.target.dataset.index);
@@ -81,17 +53,13 @@ const DragAndDrop = () => {
         <Container>
           {list.map((item, i) => (
             <div
+              draggable
               key={item.id}
               data-index={i}
-              //   onDragStart={(e) => onDragStart(e, i)}
-              //   onDragEnter={(e) => onDragEnter(e, i)}
-              //   onDragEnd={onDrageEnd}
-              //   onDragOver={onDragOver}
-              //   onDragOver={onDragOver}
-              //   onDragStart={onDragStart}
-              //   onDragEnd={onDragEnd}
-              //   onDrop={onDrop}
-              onDragStart={() => console.log('start')}>
+              onDragOver={onDragOver}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              onDrop={onDrop}>
               {item.content}
             </div>
           ))}
@@ -113,6 +81,10 @@ const Main = styled.main`
 `;
 
 const Container = styled.div`
+  border: 1px solid #94a3b8;
+  border-radius: 5px;
+  max-width: 50vh;
+  padding: 20px 0 10px 0;
   > div {
     background: #f1f5f9;
     margin-bottom: 10px;
