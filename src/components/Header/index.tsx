@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,9 +8,14 @@ const Header = () => {
       <nav>
         <ul>
           <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
             <Link to="/drag">Drag</Link>
           </li>
-          <li>DnD</li>
+          <li>
+            <Link to="/dnd">DnD</Link>
+          </li>
         </ul>
       </nav>
     </StyledHeader>
